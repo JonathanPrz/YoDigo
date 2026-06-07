@@ -53,22 +53,22 @@ export default function App() {
     const isHidden = pic ? hiddenButtons[pic.id] : false;
 
     if (isHidden && !isTutorMode) {
-      return <div key={`hidden-${pos}`} className="aspect-square" />;
+      return <div key={`hidden-${pos}`} className="w-1/4 aspect-square box-border" />;
     }
 
     if (!pic) {
-      return <div key={`empty-${pos}`} className="aspect-square" />;
+      return <div key={`empty-${pos}`} className="w-1/4 aspect-square box-border" />;
     }
 
     const colors = CATEGORY_COLORS[pic.category] || { border: 'border-slate-300', bg: 'bg-white' };
 
     return (
-      <div key={pic.id} className="aspect-square">
+      <div key={pic.id} className="w-1/4 aspect-square box-border">
         <button
           onClick={() => handlePictogramClick(pic)}
           className={`
-            w-full h-full flex flex-col items-center justify-center gap-0.5 p-1.5
-            border-[5px] rounded-2xl font-sans transition-transform active:scale-95 touch-manipulation select-none relative overflow-hidden
+            w-full h-full box-border flex flex-col items-center justify-center gap-0.5 p-1
+            border-[4px] rounded-2xl font-sans transition-transform active:scale-95 touch-manipulation select-none relative overflow-hidden
             ${colors.border} ${colors.bg}
             ${isHidden ? 'opacity-30 border-dashed grayscale' : 'shadow-sm'}
           `}
@@ -78,7 +78,7 @@ export default function App() {
           )}
           
           <div className="flex items-center justify-center text-slate-700">
-            {renderIcon(pic.icon, "w-8 h-8 sm:w-10 sm:h-10 stroke-[2.3]")}
+            {renderIcon(pic.icon, "w-7 h-7 sm:w-9 sm:h-9 stroke-[2.3]")}
           </div>
 
           <span className="text-[10px] sm:text-xs font-bold leading-tight text-center text-slate-800 uppercase">
@@ -92,7 +92,7 @@ export default function App() {
   return (
     <div className="fixed inset-0 bg-slate-50 flex flex-col p-4 select-none overflow-hidden">
       
-      <div className="w-full bg-white border-4 border-slate-300 rounded-2xl p-3 mb-4 flex items-center gap-3 shadow-sm min-h-[96px]">
+      <div className="w-full bg-white border-4 border-slate-300 rounded-2xl p-2 mb-2 flex items-center gap-2 shadow-sm min-h-[72px]">
         <div className="flex-1 flex items-center gap-2 overflow-x-auto min-h-[64px]">
           {sentence.map((pic, idx) => {
             const colors = CATEGORY_COLORS[pic.category];
@@ -126,7 +126,7 @@ export default function App() {
         </div>
       </div>
 
-      <div className="flex-1 grid grid-cols-4 grid-rows-4 gap-2 sm:gap-3 p-1 sm:p-2 max-w-5xl mx-auto w-full min-h-0">
+      <div className="flex-1 flex flex-wrap content-start gap-2 sm:gap-3 p-1 sm:p-2 max-w-5xl mx-auto w-full min-h-0">
         {Array.from({ length: 16 }, (_, i) => renderGridSlot(i + 1))}
       </div>
 
