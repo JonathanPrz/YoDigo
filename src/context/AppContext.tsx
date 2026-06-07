@@ -3,7 +3,6 @@ import { type AppState, type AppAction } from '@/types'
 
 const initialState: AppState = {
   currentFolder: 'root',
-  folderStack: [],
   sentence: [],
   hiddenButtons: [],
   voiceRate: 0.9,
@@ -13,25 +12,9 @@ const initialState: AppState = {
 function reducer(state: AppState, action: AppAction): AppState {
   switch (action.type) {
     case 'NAVIGATE':
-      return {
-        ...state,
-        folderStack: [...state.folderStack, state.currentFolder],
-        currentFolder: action.folder,
-      }
-    case 'GO_BACK': {
-      if (state.folderStack.length === 0) return state
-      const prev = state.folderStack[state.folderStack.length - 1]
-      return {
-        ...state,
-        folderStack: state.folderStack.slice(0, -1),
-        currentFolder: prev,
-      }
-    }
+      return { ...state, currentFolder: action.folder }
     case 'ADD_TO_SENTENCE':
-      return {
-        ...state,
-        sentence: [...state.sentence, action.word],
-      }
+      return { ...state, sentence: [...state.sentence, action.word] }
     case 'CLEAR_SENTENCE':
       return { ...state, sentence: [] }
     case 'TOGGLE_BUTTON': {

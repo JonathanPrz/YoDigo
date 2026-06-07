@@ -2,7 +2,6 @@ export type { FitzgeraldCategory, Pictogram, Folder } from './saac'
 
 export interface AppState {
   currentFolder: string
-  folderStack: string[]
   sentence: string[]
   hiddenButtons: string[]
   voiceRate: number
@@ -11,7 +10,6 @@ export interface AppState {
 
 export type AppAction =
   | { type: 'NAVIGATE'; folder: string }
-  | { type: 'GO_BACK' }
   | { type: 'ADD_TO_SENTENCE'; word: string }
   | { type: 'CLEAR_SENTENCE' }
   | { type: 'TOGGLE_BUTTON'; id: string }

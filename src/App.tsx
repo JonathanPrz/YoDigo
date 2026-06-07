@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import { AppProvider, useAppState } from '@/context/AppContext'
-import { getFolder } from '@/data/pictograms'
+import { getFolder } from '@/data/pictogramsData'
 import SentenceBar from '@/components/SentenceBar'
 import Grid from '@/components/Grid'
 import { PinGate, SettingsPanel } from '@/components/SettingsPanel'

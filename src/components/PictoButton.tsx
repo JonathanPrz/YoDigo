@@ -1,16 +1,16 @@
 import { useCallback } from 'react'
 import {
-  HeartHandshake, PlusCircle, CircleX, LifeBuoy, Heart, SmilePlus, Gamepad2,
-  Users, Handshake, Apple, Bath, Stethoscope, Moon, Snowflake, Sun, Droplets,
-  GlassWater, Cookie, Banana, Croissant, Armchair, Delete, Hand, Brain,
-  Accessibility, Ear, Smile, Frown, ShieldAlert, Angry, VolumeX, SunDim,
-  Expand, Waves, Music, Leaf, ToyBrick, MonitorSmartphone, MapPin, Car,
-  Circle, CircleDot, Droplet, Boxes, Puzzle, TabletSmartphone, Tv, House, School,
-  TreePine, PersonStanding, UserRound, UsersRound, ArrowLeft,
+  Hand, Plus, XCircle, LifeBuoy, User, Smile, Gamepad2, Users, MessageSquare,
+  ArrowLeft, Apple, ShowerHead, Heart, Moon, Snowflake, Sun, Droplet, CupSoda,
+  Cookie, Banana, Croissant, Armchair, Delete, HandHelping, Brain, Accessibility,
+  Ear, Frown, Angry, ShieldAlert, EarOff, SunDim, Expand, HeartHandshake, Music,
+  ToyBrick, MonitorSmartphone, MapPin, Car, Circle, CircleDot, Boxes, Puzzle,
+  TabletSmartphone, Tv, House, School, TreePine, UserRound, UsersRound, Waves,
+  Handshake,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { type Pictogram } from '@/types'
-import { getColor } from '@/utils/colors'
+import { CATEGORY_COLORS } from '@/data/pictogramsData'
 import { useAppState } from '@/context/AppContext'
 import { useTTS } from '@/hooks/useTTS'
 import { cn } from '@/utils/cn'
@@ -21,20 +21,20 @@ interface Props {
 }
 
 const iconMap: Record<string, LucideIcon> = {
-  ArrowLeft, HeartHandshake, PlusCircle, CircleX, LifeBuoy, Heart, SmilePlus,
-  Gamepad2, Users, Handshake, Apple, Bath, Stethoscope, Moon, Snowflake, Sun,
-  Droplets, GlassWater, Cookie, Banana, Croissant, Armchair, Delete, Hand, Brain,
-  Accessibility, Ear, Smile, Frown, ShieldAlert, Angry, VolumeX, SunDim,
-  Expand, Waves, Music, Leaf, ToyBrick, MonitorSmartphone, MapPin, Car, Circle, CircleDot,
-  Droplet, Boxes, Puzzle, TabletSmartphone, Tv, House, School, TreePine,
-  PersonStanding, UserRound, UsersRound,
+  Hand, Plus, XCircle, LifeBuoy, User, Smile, Gamepad2, Users, MessageSquare,
+  ArrowLeft, Apple, ShowerHead, Heart, Moon, Snowflake, Sun, Droplet, CupSoda,
+  Cookie, Banana, Croissant, Armchair, Delete, HandHelping, Brain, Accessibility,
+  Ear, Frown, Angry, ShieldAlert, EarOff, SunDim, Expand, HeartHandshake, Music,
+  ToyBrick, MonitorSmartphone, MapPin, Car, Circle, CircleDot, Boxes, Puzzle,
+  TabletSmartphone, Tv, House, School, TreePine, UserRound, UsersRound, Waves,
+  Handshake,
 }
 
 export default function PictoButton({ pictogram, disabled }: Props) {
   const { dispatch, state } = useAppState()
   const { speak } = useTTS()
   const p = pictogram
-  const color = getColor(p.category)
+  const colors = CATEGORY_COLORS[p.category] ?? CATEGORY_COLORS.connector
 
   const Icon = iconMap[p.icon] ?? Circle
 
@@ -68,17 +68,14 @@ export default function PictoButton({ pictogram, disabled }: Props) {
         'flex flex-col items-center justify-center gap-1 rounded-2xl border-[3px] p-2 transition-transform active:scale-95',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
         'min-h-0 w-full h-full overflow-hidden',
+        colors.border,
+        colors.bg,
       )}
-      style={{
-        borderColor: color.border,
-        backgroundColor: color.bgLight,
-      }}
       aria-label={p.label}
     >
       <Icon
         className="w-8 h-8 sm:w-10 sm:h-10 shrink-0"
         strokeWidth={1.8}
-        color={color.border}
       />
       <span
         className="text-[10px] sm:text-xs font-semibold leading-tight text-center text-gray-700 line-clamp-2"

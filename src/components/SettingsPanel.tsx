@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 import { Settings2 } from 'lucide-react'
-import { FOLDERS } from '@/data/pictograms'
+import { INITIAL_FOLDERS } from '@/data/pictogramsData'
 
 const PIN_ANSWER = 12
 
@@ -65,7 +65,7 @@ export function SettingsPanel({
   onToggleButton: (id: string) => void
   hiddenButtons: string[]
 }) {
-  const allPictograms = FOLDERS.flatMap((f) => f.pictograms)
+  const allPictograms = Object.values(INITIAL_FOLDERS).flatMap((f) => f.pictograms)
 
   const grouped = allPictograms.reduce<Record<string, typeof allPictograms>>(
     (acc, p) => {
