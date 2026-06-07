@@ -53,17 +53,17 @@ export default function App() {
     const isHidden = pic ? hiddenButtons[pic.id] : false;
 
     if (isHidden && !isTutorMode) {
-      return <div key={`hidden-${pos}`} className="w-1/4 aspect-square box-border" />;
+      return <div key={`hidden-${pos}`} className="aspect-square box-border" />;
     }
 
     if (!pic) {
-      return <div key={`empty-${pos}`} className="w-1/4 aspect-square box-border" />;
+      return <div key={`empty-${pos}`} className="aspect-square box-border" />;
     }
 
     const colors = CATEGORY_COLORS[pic.category] || { border: 'border-slate-300', bg: 'bg-white' };
 
     return (
-      <div key={pic.id} className="w-1/4 aspect-square box-border">
+      <div key={pic.id} className="aspect-square box-border">
         <button
           onClick={() => handlePictogramClick(pic)}
           className={`
@@ -126,7 +126,7 @@ export default function App() {
         </div>
       </div>
 
-      <div className="flex-1 flex flex-wrap content-start gap-2 sm:gap-3 p-1 sm:p-2 max-w-5xl mx-auto w-full min-h-0">
+      <div className="flex-1 grid grid-cols-4 gap-2 sm:gap-3 p-1 sm:p-2 max-w-5xl mx-auto w-full min-h-0">
         {Array.from({ length: 16 }, (_, i) => renderGridSlot(i + 1))}
       </div>
 
