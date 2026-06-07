@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 100% 97%;
+    --foreground: 0 0% 20%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 20%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 20%;
+    --primary: 142 71% 45%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 0 0% 20%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 0 0% 50%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 0 0% 20%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 142 71% 45%;
+    --radius: 1rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html, body {
+    @apply h-full overflow-hidden touch-manipulation select-none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+  #root {
+    @apply h-full;
+  }
+}
+
+@layer utilities {
+  .fitzgerald-border-yellow { border-color: #F5C543; }
+  .fitzgerald-border-green  { border-color: #66BB6A; }
+  .fitzgerald-border-orange { border-color: #FFA726; }
+  .fitzgerald-border-blue   { border-color: #42A5F5; }
+  .fitzgerald-border-pink   { border-color: #EF5350; }
+  .fitzgerald-border-gray   { border-color: #9E9E9E; }
+}
