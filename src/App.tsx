@@ -48,49 +48,45 @@ export default function App() {
     return IconComponent ? <IconComponent className={className} /> : <Icons.HelpCircle className={className} />;
   };
 
-  const renderGridSlots = () => {
-    const gridPositions = Array.from({ length: 16 }, (_, i) => i + 1);
+  const renderGridSlot = (pos: number) => {
+    const pic = currentFolder.pictograms.find(p => p.position === pos);
+    const isHidden = pic ? hiddenButtons[pic.id] : false;
 
-    return gridPositions.map(pos => {
-      const pic = currentFolder.pictograms.find(p => p.position === pos);
+    if (isHidden && !isTutorMode) {
+      return <div key={`hidden-${pos}`} className="aspect-square" />;
+    }
 
-      if (!pic) {
-        return <div key={`empty-${pos}`} className="bg-transparent rounded-2xl" />;
-      }
+    if (!pic) {
+      return <div key={`empty-${pos}`} className="aspect-square" />;
+    }
 
-      const isHidden = hiddenButtons[pic.id];
-      
-      if (isHidden && !isTutorMode) {
-        return <div key={`hidden-${pic.id}`} className="bg-transparent rounded-2xl" />;
-      }
+    const colors = CATEGORY_COLORS[pic.category] || { border: 'border-slate-300', bg: 'bg-white' };
 
-      const colors = CATEGORY_COLORS[pic.category] || { border: 'border-slate-300', bg: 'bg-white' };
-
-      return (
+    return (
+      <div key={pic.id} className="aspect-square">
         <button
-          key={pic.id}
           onClick={() => handlePictogramClick(pic)}
           className={`
-            w-full h-full aspect-square flex flex-col items-center justify-between p-3 
-            border-[5px] rounded-2xl font-sans transition-transform active:scale-95 touch-manipulation select-none relative
+            w-full h-full flex flex-col items-center justify-center gap-0.5 p-1.5
+            border-[5px] rounded-2xl font-sans transition-transform active:scale-95 touch-manipulation select-none relative overflow-hidden
             ${colors.border} ${colors.bg}
             ${isHidden ? 'opacity-30 border-dashed grayscale' : 'shadow-sm'}
           `}
         >
           {pic.actionType === 'navigate' && (
-            <span className="absolute top-1.5 right-2.5 text-xs opacity-60">📁</span>
+            <span className="absolute top-0.5 right-1 text-[10px] opacity-60">📁</span>
           )}
           
-          <div className="flex-1 flex items-center justify-center text-slate-700">
-            {renderIcon(pic.icon, "w-14 h-14 stroke-[2.3]")}
+          <div className="flex items-center justify-center text-slate-700">
+            {renderIcon(pic.icon, "w-8 h-8 sm:w-10 sm:h-10 stroke-[2.3]")}
           </div>
 
-          <span className="text-base font-extrabold tracking-wide text-slate-800 uppercase block mt-1">
+          <span className="text-[10px] sm:text-xs font-bold leading-tight text-center text-slate-800 uppercase">
             {pic.label}
           </span>
         </button>
-      );
-    });
+      </div>
+    );
   };
 
   return (
@@ -130,8 +126,8 @@ export default function App() {
         </div>
       </div>
 
-      <div className="flex-1 grid grid-cols-4 grid-rows-4 gap-3 max-w-5xl mx-auto w-full">
-        {renderGridSlots()}
+      <div className="flex-1 grid grid-cols-4 grid-rows-4 gap-2 sm:gap-3 p-1 sm:p-2 max-w-5xl mx-auto w-full min-h-0">
+        {Array.from({ length: 16 }, (_, i) => renderGridSlot(i + 1))}
       </div>
 
       <div className="w-full flex justify-between items-center mt-3 pt-2 border-t border-slate-200 text-xs">
