@@ -9,7 +9,7 @@ import {
   TreePine, PersonStanding, UserRound, UsersRound, ArrowLeft,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
-import { type Pictogram, type FitzgeraldColor } from '@/types'
+import { type Pictogram } from '@/types'
 import { getColor } from '@/utils/colors'
 import { useAppState } from '@/context/AppContext'
 import { useTTS } from '@/hooks/useTTS'
@@ -34,33 +34,31 @@ export default function PictoButton({ pictogram, disabled }: Props) {
   const { dispatch, state } = useAppState()
   const { speak } = useTTS()
   const p = pictogram
-  const color = getColor(p.color as FitzgeraldColor)
+  const color = getColor(p.category)
 
   const Icon = iconMap[p.icon] ?? Circle
 
   const handleClick = useCallback(() => {
     if (disabled) return
 
-    switch (p.action) {
+    switch (p.actionType) {
       case 'speak':
         speak(p.label, state.voiceRate, state.voicePitch)
         dispatch({ type: 'ADD_TO_SENTENCE', word: p.label })
         break
-      case 'speak-add':
-        dispatch({ type: 'ADD_TO_SENTENCE', word: p.label })
-        break
       case 'navigate':
-        dispatch({ type: 'NAVIGATE', screen: p.id })
+        if (p.targetFolder) {
+          dispatch({ type: 'NAVIGATE', folder: p.targetFolder })
+        }
         break
-      case 'back':
-        dispatch({ type: 'GO_BACK' })
+      case 'sequence':
         break
     }
   }, [disabled, p, speak, state.voiceRate, state.voicePitch, dispatch])
 
   const isHidden = state.hiddenButtons.includes(p.id)
 
-  if (isHidden && p.action !== 'back') return null
+  if (isHidden) return null
 
   return (
     <button

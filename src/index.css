@@ -43,11 +43,3 @@
   }
 }
 
-@layer utilities {
-  .fitzgerald-border-yellow { border-color: #F5C543; }
-  .fitzgerald-border-green  { border-color: #66BB6A; }
-  .fitzgerald-border-orange { border-color: #FFA726; }
-  .fitzgerald-border-blue   { border-color: #42A5F5; }
-  .fitzgerald-border-pink   { border-color: #EF5350; }
-  .fitzgerald-border-gray   { border-color: #9E9E9E; }
-}

@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 import { Settings2 } from 'lucide-react'
-import { SCREENS } from '@/data/pictograms'
+import { FOLDERS } from '@/data/pictograms'
 
 const PIN_ANSWER = 12
 
@@ -65,13 +65,11 @@ export function SettingsPanel({
   onToggleButton: (id: string) => void
   hiddenButtons: string[]
 }) {
-  const allPictograms = SCREENS.flatMap((s) => s.pictograms).filter(
-    (p) => p.id !== 'atras'
-  )
+  const allPictograms = FOLDERS.flatMap((f) => f.pictograms)
 
   const grouped = allPictograms.reduce<Record<string, typeof allPictograms>>(
     (acc, p) => {
-      const cat = p.color
+      const cat = p.category
       if (!acc[cat]) acc[cat] = []
       acc[cat].push(p)
       return acc
@@ -89,10 +87,10 @@ export function SettingsPanel({
         Activa o desactiva botones para simplificar la pantalla.
       </p>
       <div className="flex flex-col gap-2 max-h-[60vh] overflow-y-auto">
-        {Object.entries(grouped).map(([color, pictos]) => (
-          <div key={color}>
+        {Object.entries(grouped).map(([category, pictos]) => (
+          <div key={category}>
             <span className="text-xs font-semibold text-gray-400 uppercase">
-              {color}
+              {category}
             </span>
             {pictos.map((p) => (
               <label

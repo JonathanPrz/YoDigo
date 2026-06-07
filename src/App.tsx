@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import { AppProvider, useAppState } from '@/context/AppContext'
-import { getScreen } from '@/data/pictograms'
+import { getFolder } from '@/data/pictograms'
 import SentenceBar from '@/components/SentenceBar'
 import Grid from '@/components/Grid'
 import { PinGate, SettingsPanel } from '@/components/SettingsPanel'
@@ -10,8 +10,8 @@ function YodigoApp() {
   const { state, dispatch } = useAppState()
   const [showPin, setShowPin] = useState(false)
 
-  const currentScreen = getScreen(state.screen)
-  const screenLabel = currentScreen.find(p => p.action === 'navigate')?.label ?? 'Inicio'
+  const folder = getFolder(state.currentFolder)
+  const screenLabel = folder?.name ?? 'Inicio'
 
   const handleToggleButton = useCallback(
     (id: string) => dispatch({ type: 'TOGGLE_BUTTON', id }),

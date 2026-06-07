@@ -1,24 +1,19 @@
-export type FitzgeraldColor = 'yellow' | 'green' | 'orange' | 'blue' | 'pink' | 'gray'
+export type { FitzgeraldCategory, Pictogram, Folder } from './saac'
 
-export type PictoAction = 'speak' | 'navigate' | 'speak-add' | 'back' | 'play' | 'clear'
-
-export interface Pictogram {
-  id: string
-  label: string
-  icon: string
-  color: FitzgeraldColor
-  action: PictoAction
-  category?: 'immediate' | 'folder' | 'subfolder' | 'terminal'
-  children?: string[]
-  parentId?: string
-  gridPosition: number
-  hidden?: boolean
+export interface AppState {
+  currentFolder: string
+  folderStack: string[]
+  sentence: string[]
+  hiddenButtons: string[]
+  voiceRate: number
+  voicePitch: number
 }
 
-export interface FolderNode {
-  id: string
-  label: string
-  icon: string
-  color: FitzgeraldColor
-  children: Pictogram[]
-}
+export type AppAction =
+  | { type: 'NAVIGATE'; folder: string }
+  | { type: 'GO_BACK' }
+  | { type: 'ADD_TO_SENTENCE'; word: string }
+  | { type: 'CLEAR_SENTENCE' }
+  | { type: 'TOGGLE_BUTTON'; id: string }
+  | { type: 'SET_VOICE_RATE'; rate: number }
+  | { type: 'SET_VOICE_PITCH'; pitch: number }
